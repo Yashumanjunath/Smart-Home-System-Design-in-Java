@@ -1,0 +1,29 @@
+Example Usage
+
+
+public class SmartHomeSystem {
+    public static void main(String[] args) {
+        SmartHomeHub hub = SmartHomeHub.getInstance();
+
+        // Create devices
+        SmartDevice light = DeviceFactory.createDevice(1, "light");
+        SmartDevice thermostat = DeviceFactory.createDevice(2, "thermostat", 70);
+        SmartDevice doorLock = DeviceFactory.createDevice(3, "door");
+
+        // Add devices to hub
+        hub.addDevice(light);
+        hub.addDevice(thermostat);
+        hub.addDevice(doorLock);
+
+        // Turn on the light using proxy
+        DeviceProxy lightProxy = new DeviceProxy(light);
+        lightProxy.turnOn();
+
+        // Schedule thermostat
+        Scheduler scheduler = new Scheduler();
+        scheduler.setSchedule(thermostat.getDeviceId(), "06:00", "Turn On");
+
+        // View status report
+        System.out.println(hub.statusReport());
+    }
+}

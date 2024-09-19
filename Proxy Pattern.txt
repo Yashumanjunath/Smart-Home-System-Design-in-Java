@@ -1,0 +1,19 @@
+4. Proxy Pattern   
+
+class DeviceProxy {
+    private SmartDevice device;
+
+    public DeviceProxy(SmartDevice device) {
+        this.device = device;
+    }
+
+    public void turnOn() {
+        // Additional access control logic can go here
+        device.turnOn();
+    }
+
+    public void turnOff() {
+        // Additional access control logic can go here
+        device.turnOff();
+    }
+}

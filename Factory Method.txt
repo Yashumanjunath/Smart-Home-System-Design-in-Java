@@ -1,0 +1,17 @@
+3. Factory Method       
+
+
+class DeviceFactory {
+    public static SmartDevice createDevice(int deviceId, String deviceType, int... args) {
+        switch (deviceType) {
+            case light
+                return new Light(deviceId);
+            case thermostat
+                return new Thermostat(deviceId, args[0]);
+            case door
+                return new DoorLock(deviceId);
+            default
+                throw new IllegalArgumentException(Unknown device type.);
+        }
+    }
+}

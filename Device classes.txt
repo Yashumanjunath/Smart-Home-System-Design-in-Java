@@ -1,0 +1,92 @@
+1.Device Classes     
+
+abstract class SmartDevice {
+    protected int deviceId;
+    protected String status;
+
+    public SmartDevice(int deviceId) {
+        this.deviceId = deviceId;
+        this.status = "off"; // Default status for devices
+    }
+
+    public abstract void turnOn();
+    public abstract void turnOff();
+
+    public String getStatus() {
+        return status;
+    }
+
+    public int getDeviceId() {
+        return deviceId;
+    }
+}
+
+class Light extends SmartDevice {
+    public Light(int deviceId) {
+        super(deviceId);
+    }
+
+    @Override
+    public void turnOn() {
+        status = "on";
+        notifyHub();
+    }
+
+    @Override
+    public void turnOff() {
+        status = "off";
+        notifyHub();
+    }
+
+    private void notifyHub() {
+        SmartHomeHub.getInstance().notifyObservers(this);
+    }
+}
+
+class Thermostat extends SmartDevice {
+    private int temperature;
+
+    public Thermostat(int deviceId, int temperature) {
+        super(deviceId);
+        this.temperature = temperature;
+    }
+
+    @Override
+    public void turnOn() {
+        status = "on";
+        notifyHub();
+    }
+
+    @Override
+    public void turnOff() {
+        status = "off";
+        notifyHub();
+    }
+
+    private void notifyHub() {
+        SmartHomeHub.getInstance().notifyObservers(this);
+    }
+}
+
+class DoorLock extends SmartDevice {
+    public DoorLock(int deviceId) {
+        super(deviceId);
+        status = "locked"; // Default status
+    }
+
+    @Override
+    public void turnOn() {
+        status = "unlocked";
+        notifyHub();
+    }
+
+    @Override
+    public void turnOff() {
+        status = "locked";
+        notifyHub();
+    }
+
+    private void notifyHub() {
+        SmartHomeHub.getInstance().notifyObservers(this);
+    }
+}

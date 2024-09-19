@@ -1,0 +1,34 @@
+5. Scheduling and Automation    
+
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+class Scheduler {
+    private Timer timer;
+
+    public Scheduler() {
+        timer = new Timer();
+    }
+
+    public void setSchedule(int deviceId, String time, String action) {
+        // Simplified for demonstration purposes; a real implementation would parse and handle time
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if ("Turn On".equals(action)) {
+                    SmartHomeHub.getInstance().notifyObservers(getDeviceById(deviceId));
+                }
+            }
+        }, /* schedule time logic here */);
+    }
+
+    private SmartDevice getDeviceById(int deviceId) {
+        for (SmartDevice device : SmartHomeHub.getInstance().devices) {
+            if (device.getDeviceId() == deviceId) {
+                return device;
+            }
+        }
+        return null; // Or throw exception
+    }
+}

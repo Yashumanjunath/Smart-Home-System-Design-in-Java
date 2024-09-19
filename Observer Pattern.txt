@@ -1,0 +1,48 @@
+2. Observer Pattern     
+
+
+interface Observer {
+    void update(SmartDevice device);
+}
+
+class SmartHomeHub {
+    private static SmartHomeHub instance;
+    private List<SmartDevice> devices = new ArrayList<>();
+    private List<Observer> observers = new ArrayList<>();
+
+    private SmartHomeHub() {}
+
+    public static SmartHomeHub getInstance() {
+        if (instance == null) {
+            instance = new SmartHomeHub();
+        }
+        return instance;
+    }
+
+    public void addDevice(SmartDevice device) {
+        devices.add(device);
+    }
+
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    public void notifyObservers(SmartDevice device) {
+        for (Observer observer : observers) {
+            observer.update(device);
+        }
+    }
+
+    public String statusReport() {
+        StringBuilder report = new StringBuilder();
+        for (SmartDevice device : devices) {
+            report.append(device.getClass().getSimpleName())
+                  .append(" ")
+                  .append(device.getDeviceId())
+                  .append(" is ")
+                  .append(device.getStatus())
+                  .append(". ");
+        }
+        return report.toString();
+    }
+}
